@@ -19,6 +19,70 @@ This repository combines two powerful systems:
 @SuperClaude/Core/ORCHESTRATOR.md
 @SuperClaude/Core/MODES.md
 
+## 🔐 Repository Security Principles - MANDATORY
+
+**CRITICAL**: This is a public repository. All developers and AI agents MUST follow these security principles without exception.
+
+### Core Security Rules
+
+1. **NEVER commit sensitive data**:
+   - ❌ Passwords, API keys, authentication tokens
+   - ❌ Personal configuration files (.claude.json, .config/, etc.)
+   - ❌ Private keys, certificates, or cryptographic materials
+   - ❌ Database connection strings with credentials
+   - ❌ Personal directories or system-specific files
+
+2. **Use .gitignore comprehensively**:
+   - ✅ Python cache files (__pycache__/, *.pyc)
+   - ✅ Virtual environments (venv/, env/, .venv/)
+   - ✅ IDE configuration files (.vscode/, .idea/)
+   - ✅ System files (.DS_Store, Thumbs.db)
+   - ✅ Log files and debug output (*.log, debug.*)
+   - ✅ All credential and configuration files
+
+3. **Environment variables for configuration**:
+   - ✅ Use environment variables for sensitive configuration
+   - ✅ Document required environment variables
+   - ✅ Provide example configuration files without sensitive data
+   - ✅ Never hardcode credentials in source code
+
+4. **Secure development practices**:
+   - ✅ Regular security audits and reviews
+   - ✅ Automated security scanning in CI/CD
+   - ✅ Input validation and sanitization
+   - ✅ Secure error handling (no sensitive data in errors)
+   - ✅ Proper authentication and authorization
+
+### Pre-Commit Security Checklist
+
+Before any commit, verify:
+- [ ] No hardcoded passwords or API keys
+- [ ] No personal configuration files
+- [ ] No credentials or authentication tokens
+- [ ] No private keys or certificates
+- [ ] All sensitive data uses environment variables
+- [ ] .gitignore covers all sensitive file types
+- [ ] No debugging code with sensitive output
+
+### Security Incident Response
+
+If sensitive data is accidentally committed:
+1. **Immediate action**: Revoke/rotate all exposed credentials
+2. **Repository cleanup**: Remove sensitive data from git history
+3. **Audit**: Review all commits for similar issues
+4. **Prevention**: Update .gitignore and security checks
+5. **Documentation**: Document incident and prevention measures
+
+### Automated Security Measures
+
+- **Pre-commit hooks**: Scan for sensitive data before commit
+- **CI/CD scanning**: Automated security validation
+- **Regular audits**: Scheduled security reviews
+- **Dependency scanning**: Monitor for vulnerable dependencies
+- **Access control**: Proper repository permissions and reviews
+
+**Remember**: Once data is committed to a public repository, it should be considered permanently exposed. Prevention is the only effective security measure.
+
 ## Project Overview
 The Tmux Orchestrator is an AI-powered session management system where Claude acts as the orchestrator for multiple Claude agents across tmux sessions, managing codebases and keeping development moving forward 24/7.
 
@@ -123,7 +187,7 @@ The main Python utility provides programmatic tmux control with safety features:
 
 ### Project Structure
 ```
-/mnt/c/Users/dband/OneDrive/Documents/Tmux-Orchestrator/
+/mnt/c/Users/dband/OneDrive/Documents/termux/
 ├── tmux_utils.py              # Main Python utility
 ├── send-claude-message.sh     # Claude messaging script
 ├── schedule_with_note.sh      # Scheduling utility
@@ -131,6 +195,10 @@ The main Python utility provides programmatic tmux control with safety features:
 ├── README.md                  # User documentation
 ├── LEARNINGS.md              # Accumulated wisdom
 ├── next_check_note.txt       # Scheduling state
+├── SuperClaude/              # SuperClaude framework
+│   ├── Core/                 # Core framework components
+│   ├── Commands/             # Command definitions
+│   └── Hooks/                # Hook system
 └── .claude/commands/         # Claude command definitions
 ```
 
@@ -604,7 +672,7 @@ tmux new-window -t [session] -n "TEMP-CodeReview"
 ```bash
 # 1. Capture complete conversation
 tmux capture-pane -t [session]:[window] -S - -E - > \
-  ~/Coding/Tmux\ orchestrator/registry/logs/[session]_[role]_$(date +%Y%m%d_%H%M%S).log
+  /mnt/c/Users/dband/OneDrive/Documents/termux/logs/[session]_[role]_$(date +%Y%m%d_%H%M%S).log
 
 # 2. Create summary of work completed
 echo "=== Agent Summary ===" >> [logfile]
@@ -618,8 +686,8 @@ tmux kill-window -t [session]:[window]
 
 ### Agent Logging Structure
 ```
-~/Coding/Tmux orchestrator/registry/
-├── logs/            # Agent conversation logs
+/mnt/c/Users/dband/OneDrive/Documents/termux/logs/
+├── agent_logs/      # Agent conversation logs
 ├── sessions.json    # Active session tracking
 └── notes/           # Orchestrator notes and summaries
 ```
@@ -700,6 +768,7 @@ CURRENT_WINDOW=$(tmux display-message -p "#{session_name}:#{window_index}")
 - ❌ **Micromanagement**: Trust agents to work
 - ❌ **Quality Shortcuts**: Never compromise standards
 - ❌ **Blind Scheduling**: Never schedule without verifying target window
+- ❌ **Security Violations**: NEVER commit sensitive data to public repository (see Security Principles above)
 
 ## Critical Lessons Learned
 
@@ -919,5 +988,6 @@ This orchestration system allows a single Claude instance (the orchestrator) to 
 3. **Coordinates work** through the send-claude-message.sh script
 4. **Maintains continuity** using schedule_with_note.sh for self-scheduling
 5. **Enforces quality** through strict git discipline and project managers
+6. **Maintains security** through comprehensive .gitignore and security best practices (see Issue #15)
 
 The system uses tmux as infrastructure because it provides persistent sessions that survive disconnections, making it ideal for 24/7 autonomous operation.

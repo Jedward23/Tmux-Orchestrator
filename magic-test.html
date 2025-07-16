@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic MCP Server Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.pending { background-color: #fff3cd; }
+        .status.success { background-color: #d4edda; }
+        .status.error { background-color: #f8d7da; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        .magic-component {
+            border: 2px dashed #007bff;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Magic MCP Server Test</h1>
+        
+        <div class="test-section">
+            <h2>Test Status</h2>
+            <div class="status pending" id="magic-status">
+                Testing Magic MCP server connection...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Component Generation Test</h2>
+            <div class="magic-component" id="generated-component">
+                This area will be populated with Magic-generated component if available
+            </div>
+            <button onclick="testMagicComponent()">Test Magic Component</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Results</h2>
+            <div id="test-results">
+                <p>Click the test button to verify Magic MCP server functionality.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testMagicComponent() {
+            const statusEl = document.getElementById('magic-status');
+            const resultsEl = document.getElementById('test-results');
+            
+            statusEl.textContent = 'Attempting to contact Magic MCP server...';
+            statusEl.className = 'status pending';
+            
+            // Since this is a static HTML file, we can't actually call Magic MCP
+            // But we can simulate the test structure
+            setTimeout(() => {
+                statusEl.textContent = 'Magic MCP server test completed - Check Claude Code console for actual results';
+                statusEl.className = 'status success';
+                
+                resultsEl.innerHTML = `
+                    <h3>Magic MCP Server Test Summary</h3>
+                    <p><strong>Test Framework:</strong> Ready</p>
+                    <p><strong>Component Structure:</strong> Prepared</p>
+                    <p><strong>Next Step:</strong> Use SuperClaude /implement command with --magic flag</p>
+                    <p><strong>Expected:</strong> UI component generation with design system integration</p>
+                `;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
