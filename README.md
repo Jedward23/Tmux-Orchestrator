@@ -242,6 +242,26 @@ tmux new-window -n mobile-pm
 # Orchestrator coordinates between PMs
 ```
 
+You can automate this setup with the `multi-project-orchestrator.sh` script. Define
+your projects in `config/projects.conf`:
+
+```bash
+frontend:/path/to/frontend/project
+backend:/path/to/backend/project
+```
+
+Then deploy all sessions at once:
+
+```bash
+./scripts/multi-project-orchestrator.sh deploy
+```
+
+Generate a combined status report anytime:
+
+```bash
+./scripts/multi-project-orchestrator.sh status
+```
+
 ### Cross-Project Intelligence
 The orchestrator can share insights between projects:
 - "Frontend is using /api/v2/users, update backend accordingly"
@@ -253,9 +273,11 @@ The orchestrator can share insights between projects:
 - `send-claude-message.sh` - Simplified agent communication script
 - `schedule_with_note.sh` - Self-scheduling functionality
 - `tmux_utils.py` - Tmux interaction utilities
+- `scripts/multi-project-orchestrator.sh` - Launch and monitor multiple projects
+- `scripts/multi_project_status.py` - Generate combined status reports
 - `CLAUDE.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
-- `REFERENCE_GUIDELINES.md` - Path and reference conventions
+
 
 ## 🤝 Contributing & Optimization
 
