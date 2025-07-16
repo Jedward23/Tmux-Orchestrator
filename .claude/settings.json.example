@@ -1,0 +1,15 @@
+{
+  "superclaude": {
+    "enable_personas": true,
+    "enable_mcp": true,
+    "enable_wave": true,
+    "default_persona": "architect",
+    "token_optimization": true
+  },
+  "orchestrator": {
+    "default_session": "enhanced-orchestrator",
+    "auto_scheduling": true,
+    "schedule_interval": 120,
+    "log_level": "info"
+  }
+}

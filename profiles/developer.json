@@ -1,0 +1,17 @@
+{
+  "name": "Developer Installation", 
+  "description": "Full installation with all components including MCP servers",
+  "components": [
+    "core",
+    "commands",
+    "mcp"
+  ],
+  "features": {
+    "auto_update": false,
+    "backup_enabled": true,
+    "validation_level": "comprehensive"
+  },
+  "target_users": ["developers", "power_users"],
+  "estimated_time_minutes": 5,
+  "disk_space_mb": 100
+}

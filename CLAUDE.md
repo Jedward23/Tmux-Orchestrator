@@ -1,7 +1,202 @@
-# Claude.md - Tmux Orchestrator Project Knowledge Base
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## SuperClaude + Tmux Orchestrator Integration
+
+This repository combines two powerful systems:
+- **SuperClaude Framework**: Advanced development framework with specialized commands, personas, and AI orchestration
+- **Tmux Orchestrator**: AI-powered session management system for coordinating multiple Claude agents across tmux sessions
+
+## SuperClaude Framework Integration
+
+@SuperClaude/Core/COMMANDS.md
+@SuperClaude/Core/FLAGS.md
+@SuperClaude/Core/PRINCIPLES.md
+@SuperClaude/Core/RULES.md
+@SuperClaude/Core/MCP.md
+@SuperClaude/Core/PERSONAS.md
+@SuperClaude/Core/ORCHESTRATOR.md
+@SuperClaude/Core/MODES.md
 
 ## Project Overview
 The Tmux Orchestrator is an AI-powered session management system where Claude acts as the orchestrator for multiple Claude agents across tmux sessions, managing codebases and keeping development moving forward 24/7.
+
+**Enhanced with SuperClaude capabilities:**
+- 16 specialized development commands (`/implement`, `/build`, `/design`, etc.)
+- Smart AI personas for different domains (architect, frontend, backend, security, etc.)
+- MCP server integration (Context7, Sequential, Magic, Playwright)
+- Task management and token optimization
+- Wave orchestration for complex operations
+
+## SuperClaude Commands for Orchestrator
+
+### Development & Implementation
+```bash
+/implement [feature] --type component|api|service --framework <name>
+/build [target] --optimize --validate
+/design [domain] --focus architecture|ui|api
+```
+
+### Analysis & Quality
+```bash
+/analyze [target] --focus security|performance|architecture --think-hard
+/improve [target] --quality --security --performance --loop
+/troubleshoot [symptoms] --persona-analyzer --seq
+```
+
+### Documentation & Planning
+```bash
+/document [target] --persona-scribe=en --comprehensive
+/estimate [scope] --persona-architect --evidence-based
+/task [operation] --long-term --coordinated
+```
+
+### Integration with Orchestrator Workflow
+```bash
+# Agent briefing with SuperClaude enhancement
+./send-claude-message.sh session:0 "/load @. --persona-architect --think"
+
+# Component validation with analysis
+./send-claude-message.sh session:0 "/analyze @tmux_utils.py --focus security --validate"
+
+# Implement orchestrator improvements  
+./send-claude-message.sh session:0 "/improve @scripts/ --quality --loop --wave-mode"
+```
+
+## Core Commands
+
+### Running and Testing
+```bash
+# No formal test suite - this is a production orchestration tool
+# Test by running the interactive Python utility:
+python tmux_utils.py
+
+# Verify scripts are executable:
+ls -la *.sh  # Should show -rwxr-xr-x permissions
+
+# Test message sending:
+./send-claude-message.sh test:0 "Test message"
+
+# Test scheduling (creates next_check_note.txt):
+./schedule_with_note.sh 1 "Test note" test:0
+```
+
+### Development Tools
+```bash
+# Run Python utilities
+python tmux_utils.py  # Interactive tmux control and monitoring
+
+# Send messages to Claude agents (ALWAYS use this)
+./send-claude-message.sh <session:window> "message"
+
+# Schedule future actions
+./schedule_with_note.sh <minutes> "note" [target_window]
+```
+
+### Common Tmux Operations
+```bash
+# List all sessions and windows
+tmux list-sessions -F "#{session_name}: #{session_windows} windows"
+tmux list-windows -t session -F "#{window_index}: #{window_name}"
+
+# Capture window content
+tmux capture-pane -t session:window -p | tail -50
+
+# Create new session/window with proper directory
+tmux new-session -d -s project-name -c "/path/to/project"
+tmux new-window -t session -n "window-name" -c "/path/to/project"
+```
+
+## Code Architecture
+
+### tmux_utils.py
+The main Python utility provides programmatic tmux control with safety features:
+- **TmuxOrchestrator**: Main class with confirmation prompts for destructive actions
+- **Session Management**: get_tmux_sessions(), find_window_by_name()
+- **Window Interaction**: capture_window_content(), send_keys_to_window()
+- **Monitoring**: get_all_windows_status(), create_monitoring_snapshot()
+
+### Shell Scripts
+- **send-claude-message.sh**: Handles proper timing (0.5s delay) for Claude messages
+- **schedule_with_note.sh**: Creates persistent notes and schedules future actions using nohup
+
+### Project Structure
+```
+/mnt/c/Users/dband/OneDrive/Documents/Tmux-Orchestrator/
+├── tmux_utils.py              # Main Python utility
+├── send-claude-message.sh     # Claude messaging script
+├── schedule_with_note.sh      # Scheduling utility
+├── CLAUDE.md                  # This file
+├── README.md                  # User documentation
+├── LEARNINGS.md              # Accumulated wisdom
+├── next_check_note.txt       # Scheduling state
+└── .claude/commands/         # Claude command definitions
+```
+
+### Platform Notes (WSL)
+This project runs on WSL (Windows Subsystem for Linux). Key considerations:
+- Paths use `/mnt/c/` for Windows drives
+- Scripts must have Unix line endings (LF, not CRLF)
+- File permissions matter: scripts need execute permission (`chmod +x`)
+- Use absolute paths when referencing project scripts from other locations
+
+## Enhanced Agent Briefing with SuperClaude
+
+### SuperClaude-Enhanced Agent Creation
+```bash
+# Create agent with SuperClaude capabilities
+tmux new-window -t session -n "SuperClaude-Agent" -c "/path/to/project"
+
+# Start Claude with enhanced briefing
+tmux send-keys -t session:SuperClaude-Agent "claude" Enter
+sleep 5
+
+# Enhanced briefing with SuperClaude framework
+./send-claude-message.sh session:SuperClaude-Agent "
+/load @. --persona-architect --think
+
+You are now a SuperClaude-enhanced agent with access to specialized commands and personas:
+
+DEVELOPMENT COMMANDS:
+- /implement [feature] - Smart implementation with auto-persona selection
+- /build [target] - Framework-aware building with validation
+- /analyze [target] --think-hard - Deep system analysis
+- /improve [target] --quality --loop - Iterative enhancement
+
+ORCHESTRATOR INTEGRATION:
+- Use /analyze for component validation
+- Use /improve for systematic enhancements
+- Use /document for professional documentation
+- Report status with evidence-based metrics
+
+YOUR ENHANCED CAPABILITIES:
+- Auto-persona activation based on task domain
+- MCP server integration for better results
+- Wave orchestration for complex operations
+- Token optimization for efficiency
+
+WORKFLOW:
+1. /load @. to understand project context
+2. /analyze @. --focus architecture to assess system
+3. Use appropriate personas (architect, developer, security)
+4. Report findings with /document for status updates
+
+Begin by analyzing the current project state and identifying priorities.
+"
+```
+
+### Persona-Specific Agent Deployment
+```bash
+# Frontend Specialist Agent
+./send-claude-message.sh session:frontend "/load @. --persona-frontend --magic"
+
+# Security Audit Agent  
+./send-claude-message.sh session:security "/analyze @. --persona-security --focus security --think-hard"
+
+# Architecture Review Agent
+./send-claude-message.sh session:architect "/analyze @. --persona-architect --ultrathink --wave-mode"
+```
 
 ## Agent System Architecture
 
@@ -153,7 +348,7 @@ ls -la ~/Coding/ | grep -i "task"  # for "task templates"
 ```bash
 # Create session with project name (use hyphens for spaces)
 PROJECT_NAME="task-templates"  # or whatever the folder is called
-PROJECT_PATH="/Users/jasonedward/Coding/$PROJECT_NAME"
+PROJECT_PATH="~/Coding/$PROJECT_NAME"  # Adjust to your coding directory
 tmux new-session -d -s $PROJECT_NAME -c "$PROJECT_PATH"
 ```
 
@@ -253,12 +448,12 @@ ls -la ~/Coding/ | grep -i task
 # Found: task-templates
 
 # 2. Create session
-tmux new-session -d -s task-templates -c "/Users/jasonedward/Coding/task-templates"
+tmux new-session -d -s task-templates -c "~/Coding/task-templates"
 
 # 3. Set up windows
 tmux rename-window -t task-templates:0 "Claude-Agent"
-tmux new-window -t task-templates -n "Shell" -c "/Users/jasonedward/Coding/task-templates"
-tmux new-window -t task-templates -n "Dev-Server" -c "/Users/jasonedward/Coding/task-templates"
+tmux new-window -t task-templates -n "Shell" -c "~/Coding/task-templates"
+tmux new-window -t task-templates -n "Dev-Server" -c "~/Coding/task-templates"
 
 # 4. Start Claude and brief
 tmux send-keys -t task-templates:0 "claude" Enter
@@ -622,20 +817,20 @@ When a command fails:
 #### Using send-claude-message.sh
 ```bash
 # Basic usage - ALWAYS use this instead of manual tmux commands
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh <target> "message"
+./send-claude-message.sh <target> "message"
 
 # Examples:
 # Send to a window
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh agentic-seek:3 "Hello Claude!"
+./send-claude-message.sh agentic-seek:3 "Hello Claude!"
 
 # Send to a specific pane in split-screen
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh tmux-orc:0.1 "Message to pane 1"
+./send-claude-message.sh tmux-orc:0.1 "Message to pane 1"
 
 # Send complex instructions
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh glacier-backend:0 "Please check the database schema for the campaigns table and verify all columns are present"
+./send-claude-message.sh glacier-backend:0 "Please check the database schema for the campaigns table and verify all columns are present"
 
 # Send status update requests
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh ai-chat:2 "STATUS UPDATE: What's your current progress on the authentication implementation?"
+./send-claude-message.sh ai-chat:2 "STATUS UPDATE: What's your current progress on the authentication implementation?"
 ```
 
 #### Why Use the Script?
@@ -646,8 +841,8 @@ When a command fails:
 5. **Consistent messaging**: All agents receive messages the same way
 
 #### Script Location and Usage
-- **Location**: `/Users/jasonedward/Coding/Tmux orchestrator/send-claude-message.sh`
-- **Permissions**: Already executable, ready to use
+- **Location**: `./send-claude-message.sh` (in project directory)
+- **Permissions**: Must be executable (`chmod +x send-claude-message.sh`)
 - **Arguments**: 
   - First: target (session:window or session:window.pane)
   - Second: message (can contain spaces, will be properly handled)
@@ -661,34 +856,34 @@ tmux send-keys -t project:0 "claude" Enter
 sleep 5
 
 # Then use the script for the briefing
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh project:0 "You are responsible for the frontend codebase. Please start by analyzing the current project structure and identifying any immediate issues."
+./send-claude-message.sh project:0 "You are responsible for the frontend codebase. Please start by analyzing the current project structure and identifying any immediate issues."
 ```
 
 ##### 2. Cross-Agent Coordination
 ```bash
 # Ask frontend agent about API usage
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh frontend:0 "Which API endpoints are you currently using from the backend?"
+./send-claude-message.sh frontend:0 "Which API endpoints are you currently using from the backend?"
 
 # Share info with backend agent
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh backend:0 "Frontend is using /api/v1/campaigns and /api/v1/flows endpoints"
+./send-claude-message.sh backend:0 "Frontend is using /api/v1/campaigns and /api/v1/flows endpoints"
 ```
 
 ##### 3. Status Checks
 ```bash
 # Quick status request
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:0 "Quick status update please"
+./send-claude-message.sh session:0 "Quick status update please"
 
 # Detailed status request
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:0 "STATUS UPDATE: Please provide: 1) Completed tasks, 2) Current work, 3) Any blockers"
+./send-claude-message.sh session:0 "STATUS UPDATE: Please provide: 1) Completed tasks, 2) Current work, 3) Any blockers"
 ```
 
 ##### 4. Providing Assistance
 ```bash
 # Share error information
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:0 "I see in your server window that port 3000 is already in use. Try port 3001 instead."
+./send-claude-message.sh session:0 "I see in your server window that port 3000 is already in use. Try port 3001 instead."
 
 # Guide stuck agents
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:0 "The error you're seeing is because the virtual environment isn't activated. Run 'source venv/bin/activate' first."
+./send-claude-message.sh session:0 "The error you're seeing is because the virtual environment isn't activated. Run 'source venv/bin/activate' first."
 ```
 
 #### OLD METHOD (DO NOT USE)
@@ -699,14 +894,14 @@ sleep 1
 tmux send-keys -t session:window Enter
 
 # ✅ DO THIS INSTEAD:
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:window "message"
+./send-claude-message.sh session:window "message"
 ```
 
 #### Checking for Responses
 After sending a message, check for the response:
 ```bash
 # Send message
-/Users/jasonedward/Coding/Tmux\ orchestrator/send-claude-message.sh session:0 "What's your status?"
+./send-claude-message.sh session:0 "What's your status?"
 
 # Wait a bit for response
 sleep 5
@@ -714,3 +909,15 @@ sleep 5
 # Check what the agent said
 tmux capture-pane -t session:0 -p | tail -50
 ```
+
+## Key Concepts Summary
+
+This orchestration system allows a single Claude instance (the orchestrator) to manage multiple Claude agents working on different projects simultaneously. The orchestrator:
+
+1. **Deploys agents** to work on specific codebases
+2. **Monitors progress** using tmux capture commands
+3. **Coordinates work** through the send-claude-message.sh script
+4. **Maintains continuity** using schedule_with_note.sh for self-scheduling
+5. **Enforces quality** through strict git discipline and project managers
+
+The system uses tmux as infrastructure because it provides persistent sessions that survive disconnections, making it ideal for 24/7 autonomous operation.

@@ -1,0 +1,40 @@
+{
+  "components": {
+    "core": {
+      "name": "core",
+      "version": "3.0.0",
+      "description": "SuperClaude framework documentation and core files",
+      "category": "core",
+      "dependencies": [],
+      "enabled": true,
+      "required_tools": []
+    },
+    "commands": {
+      "name": "commands",
+      "version": "3.0.0", 
+      "description": "SuperClaude slash command definitions",
+      "category": "commands",
+      "dependencies": ["core"],
+      "enabled": true,
+      "required_tools": []
+    },
+    "mcp": {
+      "name": "mcp",
+      "version": "3.0.0",
+      "description": "MCP server integration (Context7, Sequential, Magic, Playwright)",
+      "category": "integration",
+      "dependencies": ["core"],
+      "enabled": true,
+      "required_tools": ["node", "claude_cli"]
+    },
+    "hooks": {
+      "name": "hooks",
+      "version": "3.0.0",
+      "description": "Claude Code hooks integration (future-ready)",
+      "category": "integration", 
+      "dependencies": ["core"],
+      "enabled": false,
+      "required_tools": []
+    }
+  }
+}

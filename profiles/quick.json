@@ -1,0 +1,16 @@
+{
+  "name": "Quick Installation",
+  "description": "Recommended installation with core framework and essential components",
+  "components": [
+    "core",
+    "commands"
+  ],
+  "features": {
+    "auto_update": false,
+    "backup_enabled": true,
+    "validation_level": "standard"
+  },
+  "target_users": ["general", "developers"],
+  "estimated_time_minutes": 2,
+  "disk_space_mb": 50
+}

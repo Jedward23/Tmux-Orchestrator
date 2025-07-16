@@ -1,0 +1,15 @@
+{
+  "name": "Minimal Installation",
+  "description": "Core framework files only",
+  "components": [
+    "core"
+  ],
+  "features": {
+    "auto_update": false,
+    "backup_enabled": true,
+    "validation_level": "basic"
+  },
+  "target_users": ["testing", "basic"],
+  "estimated_time_minutes": 1,
+  "disk_space_mb": 20
+}
