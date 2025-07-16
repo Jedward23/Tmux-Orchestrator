@@ -24,5 +24,5 @@ Keep your plan centered and very simple around how you're going to check in regu
 Stay calm and don't lose track. If you ever need guidance, go back to the original spec sheet and stay on track with it and stay on track with the lock as well. We only want to work on the specific projects mentioned in the LOCK.
 
 # Usage Examples:
-# /project:pm-oversight Glacier frontend and Glacier analytics (backend) SPEC: /Users/jasonedward/Coding/ai-chat-unified/specs/knowledge-api-authentication-spec.md
-# /project:pm-oversight ai-chat frontend and backend SPEC: /path/to/spec.md
+# /project:pm-oversight Glacier frontend and Glacier analytics (backend) SPEC: <path/to/spec.md>
+# /project:pm-oversight ai-chat frontend and backend SPEC: <path/to/spec.md>
