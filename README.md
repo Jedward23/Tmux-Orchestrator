@@ -87,6 +87,8 @@ in window 1 to implement it. Schedule check-ins every 30 minutes."
 
 # 5. Schedule orchestrator check-in
 ./schedule_with_note.sh 30 "Check PM progress on auth system"
+# The script writes `next_check_note.txt` in the repository root using a
+# dynamically calculated path.
 ```
 
 ### Option 2: Full Orchestrator Setup
@@ -110,6 +112,7 @@ Agents can schedule their own check-ins using:
 ```bash
 ./schedule_with_note.sh 30 "Continue dashboard implementation"
 ```
+The helper script automatically calculates the repository path for its note file.
 
 ### 👥 Multi-Agent Coordination
 - Project managers communicate with engineers
@@ -216,6 +219,7 @@ The script handles all timing complexities automatically, making agent communica
 ./schedule_with_note.sh 60 "Check test coverage, merge if passing"
 ./schedule_with_note.sh 120 "Full system check, rotate tasks if needed"
 ```
+These commands create or update `next_check_note.txt` in the repository root.
 
 **Important**: The orchestrator needs to know which tmux window it's running in to schedule its own check-ins correctly. If scheduling isn't working, verify the orchestrator knows its current window with:
 ```bash
@@ -273,6 +277,7 @@ The orchestrator can share insights between projects:
 - `scripts/multi_project_status.py` - Generate combined status reports
 - `CLAUDE.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
+
 
 ## 🤝 Contributing & Optimization
 
