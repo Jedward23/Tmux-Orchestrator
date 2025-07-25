@@ -56,7 +56,23 @@ The Tmux Orchestrator uses a three-tier hierarchy to overcome context window lim
 
 ## 🎯 Quick Start
 
-### Option 1: Basic Setup (Single Project)
+### Step 1: Initial Setup
+```bash
+# Clone or copy the orchestrator to your system
+cd /path/to/Tmux-Orchestrator
+
+# Run the setup script - this configures everything automatically
+./setup.sh
+
+# The setup will:
+# ✅ Check dependencies (tmux, bc, logger)
+# ✅ Find or create your projects directory 
+# ✅ Set up all required directories
+# ✅ Configure script permissions
+# ✅ Save your preferences
+```
+
+### Step 2: Basic Project Setup
 
 ```bash
 # 1. Create a project spec
@@ -79,28 +95,52 @@ EOF
 tmux new-session -s my-project
 
 # 3. Start project manager in window 0
-claude
+claude --dangerously-skip-permissions
+# Accept responsibility dialog (press 2)
+sleep 2 && tmux send-keys -t my-project:0 "2" Enter
 
 # 4. Give PM the spec and let it create an engineer
 "You are a Project Manager. Read project_spec.md and create an engineer 
 in window 1 to implement it. Schedule check-ins every 30 minutes."
 
-# 5. Schedule orchestrator check-in
+# 5. Schedule orchestrator check-in (from orchestrator directory)
+cd /path/to/Tmux-Orchestrator
 ./schedule_with_note.sh 30 "Check PM progress on auth system"
 ```
 
-### Option 2: Full Orchestrator Setup
+### Step 3: Full Orchestrator Setup
 
 ```bash
-# Start the orchestrator
+# Start the orchestrator (after running setup.sh)
 tmux new-session -s orchestrator
-claude
+claude --dangerously-skip-permissions
+# Accept responsibility dialog (press 2)
+sleep 2 && tmux send-keys -t orchestrator:0 "2" Enter
 
 # Give it your projects
 "You are the Orchestrator. Set up project managers for:
 1. Frontend (React app) - Add dashboard charts
 2. Backend (FastAPI) - Optimize database queries
 Schedule yourself to check in every hour."
+```
+
+## 🔧 Configuration Options
+
+The setup script creates a `.orchestrator.conf` file with your preferences:
+
+```bash
+# View current configuration
+cat .orchestrator.conf
+
+# Reconfigure if needed
+./setup.sh  # Run again to change settings
+```
+
+**Environment Variables** (optional):
+```bash
+# Add to ~/.bashrc or ~/.zshrc for convenience
+export PROJECTS_DIR="/your/projects/directory"
+export DEFAULT_SESSION_PREFIX="your-prefix"
 ```
 
 ## ✨ Key Features
@@ -198,7 +238,7 @@ Tmux (terminal multiplexer) is the key enabler because:
 We now use the `send-claude-message.sh` script for all agent communication:
 
 ```bash
-# Send message to any Claude agent
+# Send message to any Claude agent (run from orchestrator directory)
 ./send-claude-message.sh session:window "Your message here"
 
 # Examples:
@@ -207,20 +247,29 @@ We now use the `send-claude-message.sh` script for all agent communication:
 ./send-claude-message.sh project-manager:0 "Please coordinate with the QA team"
 ```
 
-The script handles all timing complexities automatically, making agent communication reliable and consistent.
+The script handles all timing complexities automatically and includes:
+- ✅ Input validation and error handling
+- ✅ Tmux session/window verification
+- ✅ Automatic logging of all messages
+- ✅ Cross-platform compatibility
 
 ### Scheduling Check-ins
 ```bash
-# Schedule with specific, actionable notes
+# Schedule with specific, actionable notes (run from orchestrator directory)
 ./schedule_with_note.sh 30 "Review auth implementation, assign next task"
 ./schedule_with_note.sh 60 "Check test coverage, merge if passing"
 ./schedule_with_note.sh 120 "Full system check, rotate tasks if needed"
+
+# Specify custom target window
+./schedule_with_note.sh 15 "Check deployment status" "backend-project:2"
 ```
 
-**Important**: The orchestrator needs to know which tmux window it's running in to schedule its own check-ins correctly. If scheduling isn't working, verify the orchestrator knows its current window with:
-```bash
-echo "Current window: $(tmux display-message -p "#{session_name}:#{window_index}")"
-```
+**New Features**:
+- ✅ Automatic tmux session/window validation
+- ✅ Cross-platform date command support (macOS/Linux)
+- ✅ Comprehensive error handling and logging  
+- ✅ Usage help with examples (`./schedule_with_note.sh` without args)
+- ✅ Process ID tracking for scheduled tasks
 
 ## 🎓 Advanced Usage
 
@@ -246,11 +295,14 @@ The orchestrator can share insights between projects:
 
 ## 📚 Core Files
 
-- `send-claude-message.sh` - Simplified agent communication script
-- `schedule_with_note.sh` - Self-scheduling functionality
-- `tmux_utils.py` - Tmux interaction utilities
-- `CLAUDE.md` - Agent behavior instructions
-- `LEARNINGS.md` - Accumulated knowledge base
+- **`setup.sh`** - One-time configuration script (run first!)
+- **`config.sh`** - Portable configuration system with auto-detection
+- **`send-claude-message.sh`** - Robust agent communication with validation
+- **`schedule_with_note.sh`** - Self-scheduling with error handling
+- **`tmux_utils.py`** - Tmux interaction utilities
+- **`CLAUDE.md`** - Agent behavior instructions and protocols
+- **`LEARNINGS.md`** - Accumulated knowledge base
+- **`.orchestrator.conf`** - Your personalized configuration (created by setup)
 
 ## 🤝 Contributing & Optimization
 

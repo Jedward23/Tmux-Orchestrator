@@ -1,0 +1,30 @@
+# Configuration files
+.orchestrator.conf
+
+# Runtime files
+next_check_note.txt
+
+# Logs and registry
+registry/logs/
+registry/notes/
+*.log
+
+# Temporary files
+*.tmp
+.DS_Store
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# OS generated files
+Thumbs.db
+*.swp
+*.swo
+*~
