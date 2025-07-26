@@ -3,6 +3,7 @@
 **Run AI agents 24/7 while you sleep** - The Tmux Orchestrator enables Claude agents to work autonomously, schedule their own check-ins, and coordinate across multiple projects without human intervention.
 
 ## 🤖 Key Capabilities & Autonomous Features
+amir forking this
 
 - **Self-trigger** - Agents schedule their own check-ins and continue work autonomously
 - **Coordinate** - Project managers assign tasks to engineers across multiple codebases  
