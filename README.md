@@ -244,10 +244,51 @@ The orchestrator can share insights between projects:
 - "Authentication is working in Project A, use same pattern in Project B"
 - "Performance issue found in shared library, fix across all projects"
 
+## 🔊 Reactivation Audio System
+
+The Tmux Orchestrator includes an advanced audio notification system for bot reactivation events:
+
+```bash
+# Test audio playback directly
+python3 reactivation_audio_player.py
+
+# Test with async (non-blocking) playback
+python3 reactivation_audio_player.py --async
+
+# Run comprehensive audio system tests
+python3 test_reactivation_audio.py
+```
+
+**Features:**
+- **Precise Timing**: Plays audio segments from 3.5s to 8s (4.5s duration)
+- **Flexible Audio Support**: MP3, WAV, M4A, AAC, OGG, FLAC formats
+- **Non-blocking Execution**: Audio plays concurrently with other operations
+- **Volume Control**: Configurable volume levels (0.0 to 2.0+)
+- **Automatic Detection**: Finds first audio file in `reactivation_audio/` folder
+- **Fallback Support**: Uses ffplay (preferred) or afplay (macOS fallback)
+
+**Requirements:**
+- **Recommended**: `ffmpeg` with `ffplay` for precise timing and volume control
+  ```bash
+  # Install ffmpeg
+  brew install ffmpeg  # macOS
+  apt install ffmpeg   # Linux
+  ```
+- **Fallback**: `afplay` (built into macOS, plays full file without timing control)
+
+**Audio Management:**
+- Place audio files in the `reactivation_audio/` folder
+- System automatically detects and plays the first audio file found
+- Adjust volume by editing `self.volume` in `reactivation_audio_player.py`
+- Current default: 20% volume for non-intrusive notifications
+
 ## 📚 Core Files
 
 - `send-claude-message.sh` - Simplified agent communication script
 - `schedule_with_note.sh` - Self-scheduling functionality
+- `reactivation_audio_player.py` - Audio notification system for bot reactivation
+- `test_reactivation_audio.py` - Comprehensive audio system testing
+- `reactivation_audio/` - Audio files folder with documentation
 - `tmux_utils.py` - Tmux interaction utilities
 - `CLAUDE.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
