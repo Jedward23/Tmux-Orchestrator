@@ -244,10 +244,44 @@ The orchestrator can share insights between projects:
 - "Authentication is working in Project A, use same pattern in Project B"
 - "Performance issue found in shared library, fix across all projects"
 
+## 🚨 Claude Limit Monitor
+
+Automatically handles Claude usage limits by scheduling continuation when limits reset:
+
+```bash
+# Start limit monitor (checks every 30 seconds by default)
+./start_limit_monitor.sh
+
+# Custom check interval (in seconds)
+./start_limit_monitor.sh 60
+```
+
+**Features:**
+- Monitors ALL tmux sessions simultaneously
+- Detects "Claude usage limit reached" messages
+- Automatically calculates reset time with 1-minute buffer
+- Schedules continuation for all sessions when limit resets
+- Sends "--continue" + Enter to all Claude windows
+
+**How it works:**
+1. Detects messages like "Your limit will reset at 2pm"
+2. Calculates wait time until reset + 1 minute buffer
+3. Schedules automatic continuation using system scheduler
+4. When time arrives, sends "--continue" to all Claude sessions
+
+**Perfect for:**
+- 24/7 autonomous agent operations
+- Overnight development sessions
+- Unattended long-running tasks
+- Multi-session orchestration
+
 ## 📚 Core Files
 
 - `send-claude-message.sh` - Simplified agent communication script
 - `schedule_with_note.sh` - Self-scheduling functionality
+- `claude_limit_monitor.py` - Usage limit detection and auto-continuation
+- `start_limit_monitor.sh` - Limit monitor launcher script
+- `test_limit_detection.py` - Testing suite for limit detection
 - `tmux_utils.py` - Tmux interaction utilities
 - `CLAUDE.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
