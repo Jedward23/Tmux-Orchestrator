@@ -275,6 +275,23 @@ python3 claude_auto_responder.py my-session
 - Unattended CI/CD operations
 - Batch processing workflows
 
+**Granular Presets:**
+- `pm_orchestrator`: PM-optimized (file ops, confirmations, no commands)
+- `safe_development`: Developer-safe (files, confirmations, manual commands)
+- `conservative`: Minimal automation (basic confirmations only)
+- `autonomous_agent`: Full automation (everything except git)
+
+**Example PM + Engineer Workflow:**
+```bash
+# PM enables auto-responder for management tasks
+/enable-auto pm
+
+# PM creates engineer and sets up conservative auto-responder
+# "You are a project manager, create an engineer in window 2 and say him:
+# '/enable-auto conservative' and after say him create denofresh default
+# project for now, schedule in 10 minutes to check engineer progress"
+```
+
 ## 📚 Core Files
 
 - `send-claude-message.sh` - Simplified agent communication script
