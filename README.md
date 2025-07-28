@@ -244,10 +244,43 @@ The orchestrator can share insights between projects:
 - "Authentication is working in Project A, use same pattern in Project B"
 - "Performance issue found in shared library, fix across all projects"
 
+## 🤖 Claude Auto-Responder
+
+For fully autonomous operation, the Claude Auto-Responder automatically handles confirmation prompts:
+
+**Prerequisites:**
+Before starting the auto-responder, ensure each Claude session in your tmux windows has **"auto-accept edits on"** enabled. This is crucial for the auto-responder to work properly with file modifications.
+
+```bash
+# Start auto-responder for a session (session name is required)
+python3 claude_auto_responder.py my-session
+
+# Or use the convenience script (session name is required)
+./start_auto_responder.sh my-session
+
+# With custom check interval
+./start_auto_responder.sh my-session 1.5
+```
+
+**Features:**
+- Monitors all windows in a tmux session
+- Detects Claude confirmation prompts automatically
+- Responds with appropriate "yes" answers
+- Runs in background without interrupting workflow
+- Configurable check intervals
+
+**Use Cases:**
+- Long-running autonomous agents
+- Overnight development sessions
+- Unattended CI/CD operations
+- Batch processing workflows
+
 ## 📚 Core Files
 
 - `send-claude-message.sh` - Simplified agent communication script
 - `schedule_with_note.sh` - Self-scheduling functionality
+- `claude_auto_responder.py` - Automatic prompt response system
+- `start_auto_responder.sh` - Auto-responder launcher script
 - `tmux_utils.py` - Tmux interaction utilities
 - `CLAUDE.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
