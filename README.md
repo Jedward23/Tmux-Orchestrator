@@ -252,11 +252,14 @@ For fully autonomous operation, the Claude Auto-Responder automatically handles 
 Before starting the auto-responder, ensure each Claude session in your tmux windows has **"auto-accept edits on"** enabled. This is crucial for the auto-responder to work properly with file modifications.
 
 ```bash
-# Start auto-responder for a session
+# Start auto-responder for a session (session name is required)
 python3 claude_auto_responder.py my-session
 
-# Or use the convenience script
+# Or use the convenience script (session name is required)
 ./start_auto_responder.sh my-session
+
+# With custom check interval
+./start_auto_responder.sh my-session 1.5
 ```
 
 **Features:**

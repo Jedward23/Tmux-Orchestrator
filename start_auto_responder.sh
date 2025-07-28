@@ -4,9 +4,30 @@
 # Starts the auto-responder in a dedicated tmux window
 #
 
-SESSION_NAME=${1:-"antko-corporate"}
+# Check if session name is provided
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <session_name> [check_interval]"
+    echo "Example: $0 my-session 2.0"
+    echo ""
+    echo "Available tmux sessions:"
+    tmux list-sessions 2>/dev/null || echo "  No tmux sessions found"
+    exit 1
+fi
+
+SESSION_NAME="$1"
 CHECK_INTERVAL=${2:-2.0}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Verify the session exists
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "❌ Error: Session '$SESSION_NAME' does not exist"
+    echo ""
+    echo "Available tmux sessions:"
+    tmux list-sessions 2>/dev/null || echo "  No tmux sessions found"
+    echo ""
+    echo "To create a new session: tmux new-session -s $SESSION_NAME"
+    exit 1
+fi
 
 echo "🚀 Starting Claude Auto-Responder for session: $SESSION_NAME"
 
